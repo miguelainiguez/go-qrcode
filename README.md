@@ -1,7 +1,7 @@
 go-qrcode
 =========
 
-A (very) light golang convenience wrapper around [zbar](http://zbar.sourceforge.net/), used for qr code processing.
+A (very) light golang convenience wrapper around [zbar](http://zbar.sourceforge.net/) made for shezadkhan137, used for qr code processing with rectangle coordinates.
 
 ## Requirements 
 
@@ -12,7 +12,7 @@ sudo apt-get install libzbar-dev
 
 Go get the library:
 ```
-go get github.com/shezadkhan137/go-qrcode/qrcode
+go get github.com/miguelainiguez/go-qrcode/qrcode
 ```
 
 ## Usage (Currently under development)
@@ -22,7 +22,7 @@ It currently only supports extracting data from a PNG Image. Example Usage:
 ```go
 import (
     "fmt"
-    "github.com/shezadkhan137/go-qrcode/qrcode"
+    "github.com/miguelainiguez/go-qrcode/qrcode"
 )
 
 func main() {

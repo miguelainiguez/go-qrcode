@@ -15,8 +15,16 @@ import (
 )
 
 type Result struct {
-	SymbolType string
 	Data       string
+	Cr1        Coordinate
+	Cr2        Coordinate
+	Cl3        Coordinate
+	Cl4        Coordinate
+}
+
+type Coordinate struct {
+	X int
+	Y int
 }
 
 func GetDataFromPNG(pngPath string) (results []Result, err error) {
@@ -35,8 +43,6 @@ func GetDataFromPNG(pngPath string) (results []Result, err error) {
 		return
 	}
 
-	//defer C.free(raw)
-
 	image := C.zbar_image_create()
 
 	defer C.zbar_image_destroy(image)
@@ -50,13 +56,14 @@ func GetDataFromPNG(pngPath string) (results []Result, err error) {
 	C.zbar_scan_image(scanner, image)
 
 	symbol := C.zbar_image_first_symbol(image)
-
 	for ; symbol != nil; symbol = C.zbar_symbol_next(symbol) {
-		typ := C.zbar_symbol_get_type(symbol)
 		data := C.zbar_symbol_get_data(symbol)
-		symbolType := C.GoString(C.zbar_get_symbol_name(typ))
 		dataString := C.GoString(data)
-		results = append(results, Result{symbolType, dataString})
+		cr1 := Coordinate{int(C.zbar_symbol_get_loc_x(symbol, 0)), int(C.zbar_symbol_get_loc_y(symbol, 0))}
+		cr2 := Coordinate{int(C.zbar_symbol_get_loc_x(symbol, 1)), int(C.zbar_symbol_get_loc_y(symbol, 1))}
+		cl3 := Coordinate{int(C.zbar_symbol_get_loc_x(symbol, 2)), int(C.zbar_symbol_get_loc_y(symbol, 2))}
+		cl4 := Coordinate{int(C.zbar_symbol_get_loc_x(symbol, 3)), int(C.zbar_symbol_get_loc_y(symbol, 3))}
+		results = append(results, Result{dataString, cr1, cr2, cl3, cl4})
 	}
 
 	return
