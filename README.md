@@ -3,7 +3,7 @@ go-qrcode
 
 A (very) light golang convenience wrapper around [zbar](http://zbar.sourceforge.net/) made for shezadkhan137, used for qr code processing with rectangle coordinates.
 
-## Requirements 
+## Requirements
 
 To compile this package requires the zbar header files which can be installed on debian/ubuntu with
 ```
@@ -48,11 +48,11 @@ Building a staticlly linked binary with cgo dependencies can be a little fragile
 ```
 go build -ldflags "-linkmode external -extldflags -static"
 ```
+## How to run
+
+go run main.go -i=test_images/boardTest9.png or if you made a build ./qrcode -i=test_images/boardTest9.png
 
 ## TODO
 
 + Add support for extrating qr data from video via V4L2
 + Add support for other image types
-
-
-

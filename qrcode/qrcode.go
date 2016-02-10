@@ -16,10 +16,10 @@ import (
 
 type Result struct {
 	Data       string
-	Cr1        Coordinate
-	Cr2        Coordinate
-	Cl3        Coordinate
-	Cl4        Coordinate
+	Cl1        Coordinate
+	Cl2        Coordinate
+	Cr3        Coordinate
+	Cr4        Coordinate
 }
 
 type Coordinate struct {
@@ -59,11 +59,11 @@ func GetDataFromPNG(pngPath string) (results []Result, err error) {
 	for ; symbol != nil; symbol = C.zbar_symbol_next(symbol) {
 		data := C.zbar_symbol_get_data(symbol)
 		dataString := C.GoString(data)
-		cr1 := Coordinate{int(C.zbar_symbol_get_loc_x(symbol, 0)), int(C.zbar_symbol_get_loc_y(symbol, 0))}
-		cr2 := Coordinate{int(C.zbar_symbol_get_loc_x(symbol, 1)), int(C.zbar_symbol_get_loc_y(symbol, 1))}
-		cl3 := Coordinate{int(C.zbar_symbol_get_loc_x(symbol, 2)), int(C.zbar_symbol_get_loc_y(symbol, 2))}
-		cl4 := Coordinate{int(C.zbar_symbol_get_loc_x(symbol, 3)), int(C.zbar_symbol_get_loc_y(symbol, 3))}
-		results = append(results, Result{dataString, cr1, cr2, cl3, cl4})
+		cl1 := Coordinate{int(C.zbar_symbol_get_loc_x(symbol, 0)), int(C.zbar_symbol_get_loc_y(symbol, 0))}
+		cl2 := Coordinate{int(C.zbar_symbol_get_loc_x(symbol, 1)), int(C.zbar_symbol_get_loc_y(symbol, 1))}
+		cr3 := Coordinate{int(C.zbar_symbol_get_loc_x(symbol, 2)), int(C.zbar_symbol_get_loc_y(symbol, 2))}
+		cr4 := Coordinate{int(C.zbar_symbol_get_loc_x(symbol, 3)), int(C.zbar_symbol_get_loc_y(symbol, 3))}
+		results = append(results, Result{dataString, cl1, cl2, cr3, cr4})
 	}
 
 	return
